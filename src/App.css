@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,27 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  width: 220px; /* Adjust the width as needed */
+  padding-top: 60px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.main-content {
+  margin-left: 220px; /* Adjust the margin to match the sidebar width */
+  padding: 20px; /* Add padding to the main content area */
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
+
