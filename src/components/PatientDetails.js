@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { HouseDoor, FileEarmarkText,Box } from 'react-bootstrap-icons';
+import Image from "react-bootstrap/Image";
 
-const DocumentDetails = () => {
+
+const PatientDetails = () => {
   const { id } = useParams(); // Access the patient ID from the route parameters
 
   // Fetch and display details based on the patient ID (Replace this with your actual logic)
@@ -17,13 +19,13 @@ const DocumentDetails = () => {
       <h1>Details for Patient ID: {id}</h1>
         {/* Side Navigation Bar */}
         <Col sm={2} className="bg-info sidebar">
-          <Nav defaultActiveKey="/home" className="flex-column">
-            <Nav.Link as={Link} to="/" className="d-flex align-items-center bg-warning">
-              <Box size={20} className="mr-2" /> {/* Use the Box icon or replace it with your desired project name icon */}
+          <Nav defaultActiveKey="/dashboard" className="flex-column">
+            <Nav.Link as={Link}  className="d-flex align-items-center bg-warning">
+            <Image src="logo-black.png" roundedCircle />
                Avika Med
             </Nav.Link>
             {/* HomePage Link */}
-            <Nav.Link as={Link} to="/" className="d-flex align-items-center">
+            <Nav.Link as={Link} to="/dashboard" className="d-flex align-items-center">
               <HouseDoor size={20} className="mr-2" />
               Home Page
             </Nav.Link>
@@ -40,4 +42,4 @@ const DocumentDetails = () => {
   );
 };
 
-export default DocumentDetails;
+export default PatientDetails;

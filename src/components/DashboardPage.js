@@ -4,33 +4,36 @@ import React, { useState } from "react";
 import { Container, Row, Col, Nav, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { HouseDoor, FileEarmarkText, Box } from "react-bootstrap-icons";
+import Image from "react-bootstrap/Image";
 
 const DashboardPage = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileChange = (event) => {
-    // Handle file change event
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
+  // const handleFileChange = (event) => {
+  //   // Handle file change event
+  //   const file = event.target.files[0];
+  //   setSelectedFile(file);
+  // };
 
   return (
     <Container fluid>
       <Row>
         {/* Side Navigation Bar */}
         <Col sm={2} className="bg-info sidebar">
-          <Nav defaultActiveKey="/home" className="flex-column">
+          <Nav defaultActiveKey="/dashboard" className="flex-column">
             <Nav.Link
               as={Link}
-              to="/"
               className="d-flex align-items-center bg-warning"
             >
-              <Box size={20} className="mr-2" />{" "}
-              {/* Use the Box icon or replace it with your desired project name icon */}
+              <Image src="logo-black.png" roundedCircle />
               Avika Med
             </Nav.Link>
             {/* HomePage Link */}
-            <Nav.Link as={Link} to="/" className="d-flex align-items-center">
+            <Nav.Link
+              as={Link}
+              to="/dashboard"
+              className="d-flex align-items-center"
+            >
               <HouseDoor size={20} className="mr-2" />
               Home Page
             </Nav.Link>
@@ -47,27 +50,27 @@ const DashboardPage = () => {
           </Nav>
         </Col>
         {/* Main Content */}
-        <Col sm={6} className="ml-sm-auto main-content">
+        {/* <Col sm={6} className="ml-sm-auto main-content">
           {/* File Upload Section */}
-          <h2>File Upload</h2>
+        {/* <h2>File Upload</h2>
           <Form>
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Choose a file:</Form.Label>
               <Form.Control type="file" onChange={handleFileChange} />
             </Form.Group>
-          </Form>
-        </Col>
+          </Form> */}
+        {/* </Col>
         <Col sm={4} className="ml-sm-auto main-content">
           {/* Display selected file information */}
-          {selectedFile && (
+        {/* {selectedFile && (
             <div>
               <h4>Selected File:</h4>
               <p>Name: {selectedFile.name}</p>
               <p>Type: {selectedFile.type}</p>
               <p>Size: {selectedFile.size} bytes</p>
             </div>
-          )}
-        </Col>
+          )} */}
+        {/* </Col> */}
       </Row>
     </Container>
   );
