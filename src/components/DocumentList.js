@@ -15,7 +15,7 @@ const DocumentList = () => {
     // Fetch patient data from API based on search criteria
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiEndpoint}/admin/searchMedicalRecord?searchName=${searchName}&searchAge=${searchAge}&searchGender=${searchGender}`);
+        const response = await fetch(`https://med.test.avika.ai/admin/searchMedicalRecord?searchName=${searchName}&searchAge=${searchAge}&searchGender=${searchGender}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -35,10 +35,7 @@ const DocumentList = () => {
   };
 
   useEffect(() => {
-    // Load API endpoint from environment variables
-    // You can skip this part if you set the API endpoint directly
-    // Replace REACT_APP_API_ENDPOINT with the actual variable name if different
-    setApiEndpoint(process.env.REACT_APP_API_ENDPOINT || 'https://med.test.avika.ai/admin/searchMedicalRecord');
+    setApiEndpoint('https://med.test.avika.ai/admin/searchMedicalRecord');
   }, []);
 
   return (
