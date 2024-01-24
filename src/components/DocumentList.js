@@ -3,15 +3,28 @@ import { Container, Row, Col, Form, Table, Button, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { HouseDoor, FileEarmarkText, Box } from 'react-bootstrap-icons';
 import axios from "axios";
+import { TablePagination } from '@mui/material';
 
 const DocumentList = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchAge, setSearchAge] = useState('');
-  const [searchGender, setSearchGender] = useState('');
   const [patientData, setPatientData] = useState([]);
   const [filteredPatientData, setFilteredPatientData] = useState([]);
   const [searchResultMessage, setSearchResultMessage] = useState('');
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+
   const token = sessionStorage.getItem("token");
+
+  const handlePageChange = (e, p) => {
+    e.preventDefault();
+    setPage(p)
+  }
+
+  const handleRowPerPageChange = (e) => {
+    setRowsPerPage(e.target.value)
+    setPage(0)
+  }
 
   const getAllRecords = async () => {
     try {
@@ -114,7 +127,7 @@ const DocumentList = () => {
                   <td colSpan="7">No matching records found</td>
                 </tr>
               ) : (
-                filteredPatientData?.map((patient) => (
+                filteredPatientData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((patient) => (
                   <tr key={patient.id}>
                     <td>{patient.patient_name}</td>
                     <td>{patient.age}</td>
@@ -132,6 +145,16 @@ const DocumentList = () => {
               )}
             </tbody>
           </Table>
+          <TablePagination
+            rowsPerPageOptions={[10, 20, 30, 50]}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            count={patientData.length}
+            component="div"
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleRowPerPageChange}
+          >
+          </TablePagination>
         </Col>
       </Row>
     </Container>
@@ -139,3 +162,5 @@ const DocumentList = () => {
 };
 
 export default DocumentList;
+
+
