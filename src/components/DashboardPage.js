@@ -13,8 +13,8 @@ const DashboardPage = () => {
     <Container fluid>
       <Row>
         {/* Side Navigation Bar */}
-        <Col sm={2} className="bg-info sidebar">
-          <Nav defaultActiveKey="/dashboard" className="flex-column">
+        <Col sm={2} className="bg-primary sidebar">
+          <Nav defaultActiveKey="/home" className="flex-column">
             <Nav.Link
               as={Link}
               className="d-flex align-items-center bg-warning"
