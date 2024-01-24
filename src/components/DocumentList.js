@@ -108,7 +108,7 @@ const DocumentList = () => {
 
         {/* Patient Data Table */}
 
-        <Col xs={12} sm={12} md={12} lg={12} className="ml-sm-auto main-content">
+        <Col xs={12} sm={12} md={12} lg={10} className="ml-sm-auto main-content">
           <Table striped bordered hover>
             <thead>
               <tr>
