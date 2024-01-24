@@ -1,4 +1,6 @@
 import axios from "axios";
+import {baseUrl} from "../App";
+import toast from "react-hot-toast";
 import { LOGIN_SUCCESS, LOGIN_FAILURE } from "./types";
 
 const apiEndpoint = "https://med.test.avika.ai/auth/login"; // Replace with your API endpoint
@@ -67,9 +69,7 @@ export const login = (mobile, password) => async (dispatch) => {
 // export default DataFetchingComponent;
 
 
-import axios from "axios";
-import {baseUrl} from "../App";
-import toast from "react-hot-toast";
+
 
 
 export const LogoutAction  = ()=> {

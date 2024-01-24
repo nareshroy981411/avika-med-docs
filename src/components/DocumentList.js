@@ -5,7 +5,7 @@ import { HouseDoor, FileEarmarkText, Box } from 'react-bootstrap-icons';
 import axios from "axios";
 
 const DocumentList = () => {
-  const [searchName, setSearchName] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchAge, setSearchAge] = useState('');
   const [searchGender, setSearchGender] = useState('');
   const [patientData, setPatientData] = useState([]);
