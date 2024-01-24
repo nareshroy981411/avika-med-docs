@@ -6,15 +6,17 @@ import { Link } from "react-router-dom";
 import { HouseDoor, FileEarmarkText } from "react-bootstrap-icons";
 import Image from "react-bootstrap/Image";
 import Navbar from "./Navbar"
+import DocumentList from "./DocumentList";
+import Headers from "./Header";
 
 const DashboardPage = () => {
   return (
-    <Container fluid className="p-0">
-      <Row>
-        {/* Side Navigation Bar */}
-        <Navbar/>
-      </Row>
-    </Container>
+    <>
+      <Headers />
+      <DocumentList />
+      {/* Side Navigation Bar */}
+      {/* <Navbar/> */}
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import { HouseDoor, FileEarmarkText, Box } from 'react-bootstrap-icons';
 import axios from "axios";
 import { TablePagination } from '@mui/material';
 import Navbar from "./Navbar"
+import { baseUrl } from '../App';
 
 const DocumentList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -29,7 +30,7 @@ const DocumentList = () => {
 
   const getAllRecords = async () => {
     try {
-      const response = await axios.get('https://med.test.avika.ai/admin/records', {
+      const response = await axios.get(`${baseUrl}/admin/records`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,81 +70,76 @@ const DocumentList = () => {
 
 
   return (
-    <Container fluid>
-      <Row>
-        {/* Side Navigation Bar */}
-        <Navbar/>
+    <>
+      {/* Side Navigation Bar */}
+      {/* <Navbar/> */}
 
-        {/* Search Bar */}
-        <Col xs={12} sm={9} md={9} lg={9} className="ml-sm-auto main-content">
-          <Form onSubmit={handleSearch} className="d-flex">
-            <Form.Group controlId="searchTerm" className="w-50">
-              <Form.Control
-                className="w-75"
-                type="text"
-                placeholder="Search by patient name, age, gender, etc."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </Form.Group>
-            <Button variant="primary" type="button" onClick={handleSearch}>
-              Search
-            </Button>
-          </Form>
-        </Col>
+      {/* Search Bar */}
+      <Form onSubmit={handleSearch} className="d-flex m-2">
+        <Form.Group controlId="searchTerm" className="w-50">
+          <Form.Control
+            className="w-75 "
+            type="text"
+            placeholder="Search by patient name, age, gender, etc."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </Form.Group>
+        <Button variant="primary" type="button" onClick={handleSearch}>
+          Search
+        </Button>
+      </Form>
 
-        {/* Patient Data Table */}
+      {/* Patient Data Table */}
 
-        <Col xs={12} sm={12} md={12} lg={10} className="ml-sm-auto main-content">
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Patient Name</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Date of Registration</th>
-                <th>IP Number</th>
-                <th>OP Number</th>
-                <th>Action</th>
+      <Table striped bordered hover className='m-1'>
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Date of Registration</th>
+            <th>IP Number</th>
+            <th>OP Number</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredPatientData.length === 0 ? (
+            <tr>
+              <td colSpan="7">No matching records found</td>
+            </tr>
+          ) : (
+            filteredPatientData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((patient) => (
+              <tr key={patient.id}>
+                <td>{patient.patient_name}</td>
+                <td>{patient.age}</td>
+                <td>{patient.gender}</td>
+                <td>{patient.Date_of_registration}</td>
+                <td>{patient.ip_number}</td>
+                <td>{patient.op_number}</td>
+                <td>
+                  <Link to={`/details/${patient.id}`}>
+                    <Button variant="info">Details</Button>
+                  </Link>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {filteredPatientData.length === 0 ? (
-                <tr>
-                  <td colSpan="7">No matching records found</td>
-                </tr>
-              ) : (
-                filteredPatientData?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((patient) => (
-                  <tr key={patient.id}>
-                    <td>{patient.patient_name}</td>
-                    <td>{patient.age}</td>
-                    <td>{patient.gender}</td>
-                    <td>{patient.Date_of_registration}</td>
-                    <td>{patient.ip_number}</td>
-                    <td>{patient.op_number}</td>
-                    <td>
-                      <Link to={`/details/${patient.id}`}>
-                        <Button variant="info">Details</Button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[10, 20, 30, 50]}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            count={patientData.length}
-            component="div"
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleRowPerPageChange}
-          >
-          </TablePagination>
-        </Col>
-      </Row>
-    </Container>
+            ))
+          )}
+        </tbody>
+      </Table>
+      <TablePagination
+        rowsPerPageOptions={[10, 20, 30, 50]}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        count={patientData.length}
+        component="div"
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowPerPageChange}
+      >
+      </TablePagination>
+    </>
+
   );
 };
 
