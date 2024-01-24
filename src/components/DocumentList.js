@@ -79,9 +79,10 @@ const DocumentList = () => {
         </Col>
         {/* Search Bar */}
         <Col sm={9} className="ml-sm-auto main-content">
-          <Form onSubmit={handleSearch}>
-            <Form.Group controlId="searchTerm">
+          <Form onSubmit={handleSearch} className="d-flex">
+            <Form.Group controlId="searchTerm" className="w-50">
               <Form.Control
+                className="w-75"
                 type="text"
                 placeholder="Search by patient name, age, gender, etc."
                 value={searchTerm}
