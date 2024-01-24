@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { HouseDoor, FileEarmarkText, Box } from 'react-bootstrap-icons';
 import axios from "axios";
 import { TablePagination } from '@mui/material';
+import Navbar from "./Navbar"
 
 const DocumentList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -71,22 +72,7 @@ const DocumentList = () => {
     <Container fluid>
       <Row>
         {/* Side Navigation Bar */}
-        <Col xs={12} sm={2} md={2} lg={2} className="bg-info sidebar">
-          <Nav defaultActiveKey="/home" className="flex-column">
-            <Nav.Link as={Link} to="/" className="d-flex align-items-center bg-warning">
-              <Box size={20} className="mr-2" />
-              Avika Med
-            </Nav.Link>
-            <Nav.Link as={Link} to="/dashboard" className="d-flex align-items-center">
-              <HouseDoor size={20} className="mr-2" />
-              Home Page
-            </Nav.Link>
-            <Nav.Link as={Link} to="/DocumentList" className="d-flex align-items-center">
-              <FileEarmarkText size={20} className="mr-2" />
-              Document List
-            </Nav.Link>
-          </Nav>
-        </Col>
+        <Navbar/>
 
         {/* Search Bar */}
         <Col xs={12} sm={9} md={9} lg={9} className="ml-sm-auto main-content">
