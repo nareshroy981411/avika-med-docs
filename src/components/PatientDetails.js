@@ -8,9 +8,7 @@ import Image from "react-bootstrap/Image";
 
 
 const PatientDetails = () => {
-  const { id } = useParams(); // Access the patient ID from the route parameters
-
-  // Fetch and display details based on the patient ID (Replace this with your actual logic)
+  const { id } = useParams(); 
 
   return (
     <Container fluid>
