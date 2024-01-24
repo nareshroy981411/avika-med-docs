@@ -3,24 +3,22 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { HouseDoor, FileEarmarkText,Box } from 'react-bootstrap-icons';
+import { HouseDoor, FileEarmarkText, Box } from 'react-bootstrap-icons';
 import Image from "react-bootstrap/Image";
 
-
 const PatientDetails = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   return (
     <Container fluid>
       <Row>
-        
-      <h1>Details for Patient ID: {id}</h1>
+        <h1>Details for Patient ID: {id}</h1>
         {/* Side Navigation Bar */}
-        <Col sm={2} className="bg-info sidebar">
+        <Col xs={12} sm={2} md={2} lg={2} className="bg-info sidebar">
           <Nav defaultActiveKey="/dashboard" className="flex-column">
-            <Nav.Link as={Link}  className="d-flex align-items-center bg-warning">
-            <Image src="logo-black.png" roundedCircle />
-               Avika Med
+            <Nav.Link as={Link} className="d-flex align-items-center bg-warning">
+              <Image src="logo-black.png" roundedCircle />
+              Avika Med
             </Nav.Link>
             {/* HomePage Link */}
             <Nav.Link as={Link} to="/dashboard" className="d-flex align-items-center">
@@ -36,7 +34,7 @@ const PatientDetails = () => {
           </Nav>
         </Col>
       </Row>
-      </Container>
+    </Container>
   );
 };
 

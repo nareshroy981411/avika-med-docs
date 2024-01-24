@@ -71,7 +71,7 @@ const DocumentList = () => {
     <Container fluid>
       <Row>
         {/* Side Navigation Bar */}
-        <Col sm={2} className="bg-info sidebar">
+        <Col xs={12} sm={2} md={2} lg={2} className="bg-info sidebar">
           <Nav defaultActiveKey="/home" className="flex-column">
             <Nav.Link as={Link} to="/" className="d-flex align-items-center bg-warning">
               <Box size={20} className="mr-2" />
@@ -89,7 +89,7 @@ const DocumentList = () => {
         </Col>
 
         {/* Search Bar */}
-        <Col sm={9} className="ml-sm-auto main-content">
+        <Col xs={12} sm={9} md={9} lg={9} className="ml-sm-auto main-content">
           <Form onSubmit={handleSearch} className="d-flex">
             <Form.Group controlId="searchTerm" className="w-50">
               <Form.Control
@@ -108,7 +108,7 @@ const DocumentList = () => {
 
         {/* Patient Data Table */}
 
-        <Col sm={9} className="ml-sm-auto main-content">
+        <Col xs={12} sm={12} md={12} lg={12} className="ml-sm-auto main-content">
           <Table striped bordered hover>
             <thead>
               <tr>
