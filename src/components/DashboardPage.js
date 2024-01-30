@@ -12,10 +12,8 @@ import Headers from "./Header";
 const DashboardPage = () => {
   return (
     <>
-      <Headers />
+    <Headers/>
       <DocumentList />
-      {/* Side Navigation Bar */}
-      {/* <Navbar/> */}
     </>
   );
 };
