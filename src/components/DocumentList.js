@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { TablePagination } from "@mui/material";
 import DatePicker from "react-datepicker";
+import { FaCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import { baseUrl } from "../App";
 
@@ -89,89 +90,100 @@ const DocumentList = () => {
 
   return (
     <>
-    <div style={{ maxWidth: '100%', overflowX: 'auto',marginLeft:'40px' }}>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSearch();
-        }}
-        className="d-flex m-2"
-      >
-        <Form.Group controlId="searchTerm" className="w-50">
-          <Form.Control
-            className="w-75"
-            type="text"
-            placeholder="Search by patient name, age, gender"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </Form.Group>
-        <div className="d-flex align-items-center ml-2 w-20">
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="Select a date"
-            className="form-control mr-2 w-20"
-          />
-          <Button variant="primary" type="submit">
-            Search
-          </Button>
+      <div style={{ maxWidth: '100%', overflowX: 'auto',marginLeft:'40px' }}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+          className="d-flex m-2"
+        >
+          <Form.Group controlId="searchTerm" className="w-50">
+            <Form.Control
+              className="w-75"
+              type="text"
+              placeholder="Search by patient name, age, gender"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </Form.Group>
+          <div className="d-flex align-items-center ml-2 w-30">
+            <div className="position-relative">
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="yyyy-MM-dd"
+                className="form-control d-none"
+              />
+              <FaCalendarAlt
+                onClick={() => document.querySelector(".react-datepicker-wrapper input").click()}
+                className="position-absolute top-50 end-0 translate-middle-y text-primary me-2"
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            <Button variant="primary" type="submit">
+              Search
+            </Button>
+          </div>
+        </Form>
+        <div className="d-flex justify-content-end m-2">
+          <span className="mr-2">Filtered Date Documents: {filteredPatientData.length}</span>
         </div>
-      </Form>
-      <Table striped bordered hover className='m-1' style={{ maxWidth: '98%', overflowX: 'auto' }}>
-        <thead>
-          <tr>
-            <th>Patient Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Date of Registration</th>
-            <th>Created_at</th>
-            <th>IP Number</th>
-            <th>OP Number</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredPatientData.length === 0 ? (
+        <Table striped bordered hover className='m-1' style={{ maxWidth: '98%', overflowX: 'auto' }}>
+          <thead>
             <tr>
-              <td colSpan="7">
-                {searchResultMessage || "No matching records found"}
-              </td>
+              <th>S.NO</th>
+              <th>Patient Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Date of Registration</th>
+              <th>Uploaded Date</th>
+              <th>IP Number</th>
+              <th>OP Number</th>
+              <th>Action</th>
             </tr>
-          ) : (
-            filteredPatientData
-              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              ?.map((patient) => (
-                <tr key={patient.id}>
-                  <td>{patient.patient_name}</td>
-                  <td>{patient.age}</td>
-                  <td>{patient.gender}</td>
-                  <td>{patient.Date_of_registration}</td>
-                  <td>
-                    {new Date(patient.created_at).toLocaleDateString("en-CA")}
-                  </td>
-                  <td>{patient.ip_number}</td>
-                  <td>{patient.op_number}</td>
-                  <td>
-                    <Link to={`/PatientDetails/${patient.id}`}>
-                      <Button variant="info">Details</Button>
-                    </Link>
-                  </td>
-                </tr>
-              ))
-          )}
-        </tbody>
-      </Table>
-      <TablePagination
-        rowsPerPageOptions={[10, 20, 30, 50]}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        count={patientData.length}
-        component="div"
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleRowPerPageChange}
-      />
+          </thead>
+          <tbody>
+            {filteredPatientData.length === 0 ? (
+              <tr>
+                <td colSpan="8">
+                  {searchResultMessage || "No matching records found"}
+                </td>
+              </tr>
+            ) : (
+              filteredPatientData
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.map((patient, index) => (
+                  <tr key={patient.id}>
+                    <td>{index + 1}</td>
+                    <td>{patient.patient_name}</td>
+                    <td>{patient.age}</td>
+                    <td>{patient.gender}</td>
+                    <td>{patient.Date_of_registration}</td>
+                    <td>
+                      {new Date(patient.created_at).toLocaleDateString("en-CA")}
+                    </td>
+                    <td>{patient.ip_number}</td>
+                    <td>{patient.op_number}</td>
+                    <td>
+                      <Link to={`/PatientDetails/${patient.id}`}>
+                        <Button variant="info">Details</Button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+            )}
+          </tbody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[10, 20, 30, 50]}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          count={patientData.length}
+          component="div"
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleRowPerPageChange}
+        />
       </div>
     </>
   );

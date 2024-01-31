@@ -15,7 +15,7 @@ const PatientDetails = ({ token }) => {
         console.log(id);
 
         const response = await axios.get(
-          `https://med.test.avika.ai/admin/getMedicalRecord/${id}`,
+          `https://med.avika.ai/admin/getMedicalRecord/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
