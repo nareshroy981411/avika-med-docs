@@ -1,4 +1,6 @@
-import * as React from "react";
+// Header.js
+
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,7 +14,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-// import AccountCircleIcon from "../../../Assets/user (1).png";
+import AccountCircleIcon from "../Logos/user (1).png";
 import logo from "../assets/logo-no-background.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,7 +50,7 @@ function Headers() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#33bfff" }}>
+    <AppBar position="fixed" sx={{ backgroundColor: "#33bfff", zIndex: 1000 }}> {/* Add zIndex */}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/dashboard" style={{ textDecoration: "none" }}>
@@ -133,7 +135,7 @@ function Headers() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* <Avatar alt="Remy Sharp" src={AccountCircleIcon} /> */}
+                <Avatar alt="Remy Sharp" src={AccountCircleIcon} />
               </IconButton>
             </Tooltip>
             <Menu

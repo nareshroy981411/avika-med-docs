@@ -11,7 +11,7 @@ import {
 import { Toaster } from "react-hot-toast";
 import logoImage from "../assets/logo-no-background.png";
 import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { loginAction } from "../actions/authActions";
 
 const Login = () => {
@@ -62,7 +62,7 @@ const Login = () => {
               border: "1px solid #ddd",
               borderRadius: "10px",
               textAlign: "center",
-              width: "100%", // Make the paper take full width
+              width: "100%", 
             }}
           >
             <img
@@ -93,7 +93,7 @@ const Login = () => {
                     ? "Please enter a valid 10-digit number"
                     : ""
                 }
-                sx={{ mb: 2 }} // Add margin-bottom for spacing
+                sx={{ mb: 2 }} 
               />
               <TextField
                 variant="outlined"
@@ -117,7 +117,7 @@ const Login = () => {
                     </Button>
                   ),
                 }}
-                sx={{ mb: 2 }} // Add margin-bottom for spacing
+                sx={{ mb: 2 }}
               />
               <Button
                 type="submit"

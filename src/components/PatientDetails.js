@@ -20,7 +20,6 @@ const PatientDetails = ({ token }) => {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-            // responseType: 'blob', // Specify that the response is a blob
           }
         );
         console.log("Response data:", response.data);

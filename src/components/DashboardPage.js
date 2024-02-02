@@ -1,18 +1,14 @@
-// DashboardPage.js
 
 import React from "react";
-import { Container, Row, Col, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { HouseDoor, FileEarmarkText } from "react-bootstrap-icons";
-import Image from "react-bootstrap/Image";
-import Navbar from "./Navbar"
 import DocumentList from "./DocumentList";
 import Headers from "./Header";
+import { Container } from "react-bootstrap"; 
 
 const DashboardPage = () => {
   return (
     <>
     <Headers/>
+    <Container style={{ paddingTop: "60px" }}></Container>
       <DocumentList />
     </>
   );

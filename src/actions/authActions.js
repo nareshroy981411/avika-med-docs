@@ -31,10 +31,8 @@ export const loginAction = (usersData, navigate) => async (dispatch) => {
         payload: response.data
       })  
       alert(`Hi! ${response?.data?.data?.user[0]?.username}`)
-      // toast(`Hi! ${response?.data?.data?.user[0]?.username}`);
       navigate(`/dashboard`)
   } catch (error) {
-    // toast.error(error?.response?.data?.message);
     alert(error?.response?.data?.message)
     dispatch({
         type:"LOGIN_FAILED",

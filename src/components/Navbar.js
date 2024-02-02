@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { HouseDoor, FileEarmarkText, Box } from 'react-bootstrap-icons';
+import { HouseDoor} from 'react-bootstrap-icons';
 import logoImage from "../assets/logo-no-background.png"
 
 const Navbar = () => {
@@ -19,10 +19,6 @@ const Navbar = () => {
           <HouseDoor size={20} className="mr-2" />
           Home Page
         </Nav.Link>
-        {/* <Nav.Link as={Link} to="/DocumentList" className="d-flex align-items-center">
-          <FileEarmarkText size={20} className="mr-2" />
-          Document List
-        </Nav.Link> */}
       </Nav>
     </Col>
   );
