@@ -8,10 +8,6 @@ import PatientDetails from "./components/PatientDetails";
 export const baseUrl = 'https://med.avika.ai';
 export const publicURL = process.env.REACT_APP_BASE_URL;
 
-console.groupCollapsed("base");
-console.log("baseurl", baseUrl);
-console.log("publicURL", publicURL);
-console.groupEnd();
 const token = sessionStorage.getItem("token");
 
 const App = () => {

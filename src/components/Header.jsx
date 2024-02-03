@@ -28,12 +28,12 @@ function Headers() {
   const username = useSelector(
     (state) => state.authReducer?.loginData?.data?.user[0]?.username
   );
-  const dispatch = useDispatch();
+  
   const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+    setAnchorElNav(event?.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+    setAnchorElUser(event?.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -45,7 +45,7 @@ function Headers() {
   };
 
   const logoutHandle = () => {
-    sessionStorage.removeItem("token");
+    sessionStorage?.removeItem("token");
     navigate("/");
   };
 

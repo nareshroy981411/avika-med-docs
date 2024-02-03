@@ -23,9 +23,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleMobileNumberChange = (e) => {
-    const input = e.target.value.replace(/\D/g, "");
+    const input = e?.target?.value?.replace(/\D/g, "");
     setMobileNumber(input);
-    const isValid = /^\d{10}$/.test(input);
+    const isValid = /^\d{10}$/?.test(input);
     setMobileNumberError(!isValid);
   };
 

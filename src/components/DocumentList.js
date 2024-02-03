@@ -1,107 +1,144 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import { Form, Table, Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { TablePagination } from "@mui/material";
+import { CircularProgress, TablePagination } from "@mui/material";
 import DatePicker from "react-datepicker";
 import { FaCalendarAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
-import { baseUrl } from "../App";
 import empty from "../assets/empty-folder.png"
+import { useDispatch, useSelector } from "react-redux";
+import { getDocumentsAction } from "../actions/medActions";
+
+const initialState = {
+  searchTerm: "",
+  selectedDate: null,
+  filteredPatientData: [],
+  searchResultMessage: "",
+  page: 0,
+  rowsPerPage: 10,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_SEARCH_TERM":
+      return { ...state, searchTerm: action.payload };
+    case "SET_SELECTED_DATE":
+      return { ...state, selectedDate: action.payload };
+    case "SET_FILTERED_PATIENT_DATA":
+      return { ...state, filteredPatientData: action.payload };
+    case "SET_SEARCH_RESULT_MESSAGE":
+      return { ...state, searchResultMessage: action.payload };
+    case "SET_PAGE":
+      return { ...state, page: action.payload };
+    case "SET_ROWS_PER_PAGE":
+      return { ...state, rowsPerPage: action.payload };
+    default:
+      return state;
+  }
+};
 
 const DocumentList = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [patientData, setPatientData] = useState([]);
-  const [filteredPatientData, setFilteredPatientData] = useState([]);
-  const [searchResultMessage, setSearchResultMessage] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [token, setToken] = useState(sessionStorage.getItem("token"));
+  const dispatch = useDispatch();
+  const [state, setState] = useReducer(reducer, initialState);
 
-  const handlePageChange = (e, p) => setPage(p);
+  const {
+    searchTerm,
+    selectedDate,
+    filteredPatientData,
+    searchResultMessage,
+    page,
+    rowsPerPage,
+  } = state;
+
+  const patientData = useSelector((state) => state?.authReducer?.getAllDocumentRecords);
+  const loading = useSelector((state) => state.authReducer?.loading);
+  const token = sessionStorage.getItem("token") || "";
+
+  const handlePageChange = (e, p) => setState({ type: "SET_PAGE", payload: p });
 
   const handleRowPerPageChange = (e) => {
-    setRowsPerPage(e.target.value);
-    setPage(0);
+    setState({ type: "SET_ROWS_PER_PAGE", payload: e?.target?.value });
+    setState({ type: "SET_PAGE", payload: 0 });
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/admin/records`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setPatientData(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching records:", error);
-      }
-    };
-
-    fetchData();
-  }, [token]);
+    dispatch(getDocumentsAction());
+  }, [dispatch, token]);
 
   useEffect(() => {
-    setFilteredPatientData(patientData);
+    setState({ type: "SET_FILTERED_PATIENT_DATA", payload: patientData });
   }, [patientData]);
 
   useEffect(() => {
     if (selectedDate) {
-      const filteredData = patientData.filter(
+      const filteredData = patientData?.filter(
         (patient) =>
-          new Date(patient.created_at).toLocaleDateString("en-CA") ===
-          selectedDate.toLocaleDateString("en-CA")
+          new Date(patient?.created_at)?.toLocaleDateString("en-CA") ===
+          selectedDate?.toLocaleDateString("en-CA")
       );
-      setFilteredPatientData(filteredData);
+      setState({ type: "SET_FILTERED_PATIENT_DATA", payload: filteredData });
     } else {
-      setFilteredPatientData(patientData);
+      setState({ type: "SET_FILTERED_PATIENT_DATA", payload: patientData });
     }
   }, [selectedDate, patientData]);
 
+  if (loading) {
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "20px",
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
+
   const handleSearch = () => {
-    const lowerCaseSearchTerm = searchTerm.toLowerCase();
-    const filteredData = patientData.filter((patient) => {
-      const createdAtDate = new Date(patient.created_at).toLocaleDateString(
+    const lowerCaseSearchTerm = searchTerm?.toLowerCase();
+    const filteredData = patientData?.filter((patient) => {
+      const createdAtDate = new Date(patient?.created_at)?.toLocaleDateString(
         "en-CA"
       );
       if (lowerCaseSearchTerm === "male") {
         return (
-          patient.patient_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-          patient.age.toString().includes(searchTerm) ||
-          patient.gender.toLowerCase() === "male" ||
-          createdAtDate.includes(searchTerm) ||
+          patient?.patient_name?.toLowerCase()?.includes(lowerCaseSearchTerm) ||
+          patient?.age?.toString()?.includes(searchTerm) ||
+          patient?.gender?.toLowerCase() === "male" ||
+          createdAtDate?.includes(searchTerm) ||
           (selectedDate &&
-            new Date(patient.created_at).toLocaleDateString("en-CA") ===
-              selectedDate.toLocaleDateString("en-CA"))
+            new Date(patient?.created_at)?.toLocaleDateString("en-CA") ===
+            selectedDate?.toLocaleDateString("en-CA"))
         );
       } else if (lowerCaseSearchTerm === "female") {
         return (
-          patient.patient_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-          patient.age.toString().includes(searchTerm) ||
-          patient.gender.toLowerCase() === "female" ||
-          createdAtDate.includes(searchTerm) ||
+          patient?.patient_name?.toLowerCase()?.includes(lowerCaseSearchTerm) ||
+          patient?.age?.toString()?.includes(searchTerm) ||
+          patient?.gender?.toLowerCase() === "female" ||
+          createdAtDate?.includes(searchTerm) ||
           (selectedDate &&
-            new Date(patient.created_at).toLocaleDateString("en-CA") ===
-              selectedDate.toLocaleDateString("en-CA"))
+            new Date(patient?.created_at)?.toLocaleDateString("en-CA") ===
+            selectedDate?.toLocaleDateString("en-CA"))
         );
       } else {
         return (
-          patient.patient_name.toLowerCase().includes(lowerCaseSearchTerm) ||
-          patient.age.toString().includes(searchTerm) ||
-          createdAtDate.includes(searchTerm) ||
+          patient?.patient_name?.toLowerCase()?.includes(lowerCaseSearchTerm) ||
+          patient?.age?.toString()?.includes(searchTerm) ||
+          createdAtDate?.includes(searchTerm) ||
           (selectedDate &&
-            new Date(patient.created_at).toLocaleDateString("en-CA") ===
-              selectedDate.toLocaleDateString("en-CA"))
+            new Date(patient?.created_at)?.toLocaleDateString("en-CA") ===
+            selectedDate?.toLocaleDateString("en-CA"))
         );
       }
     });
-  
-    setSearchResultMessage(
-      filteredData.length === 0 ? "No matching records found" : ""
-    );
-    setFilteredPatientData(filteredData);
+
+    setState({
+      type: "SET_SEARCH_RESULT_MESSAGE",
+      payload: filteredData?.length === 0 ? "No matching records found" : ""
+    });
+    setState({ type: "SET_FILTERED_PATIENT_DATA", payload: filteredData });
   };
-  
 
   return (
     <>
@@ -119,14 +156,14 @@ const DocumentList = () => {
             handleSearch();
           }}
           className="d-flex m-2"
-          style={{ position: "sticky",top:'10px', zIndex: 100, background: "#fff" }}
+          style={{ position: "sticky", top: '10px', zIndex: 100, background: "#fff" }}
         >
           <Form.Group controlId="searchTerm" as={Col} xs={12} md={6}>
             <Form.Control
               type="text"
               placeholder="Search by patient name, age, gender"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setState({ type: "SET_SEARCH_TERM", payload: e?.target?.value })}
             />
           </Form.Group>
           <Form.Group
@@ -138,7 +175,7 @@ const DocumentList = () => {
             <div className="position-relative">
               <DatePicker
                 selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+                onChange={(date) => setState({ type: "SET_SELECTED_DATE", payload: date })}
                 dateFormat="yyyy-MM-dd"
                 className="form-control d-none"
               />
@@ -164,9 +201,9 @@ const DocumentList = () => {
           <Col xs={12} className="d-flex justify-content-end">
             <span>
               {selectedDate
-                ? `${selectedDate.toLocaleDateString("en-CA")} Documents`
+                ? `${selectedDate?.toLocaleDateString("en-CA")} Documents`
                 : "All Documents"}{" "}
-              : {filteredPatientData.length}
+              : {filteredPatientData?.length}
             </span>
           </Col>
           <Col xs={12}>
@@ -196,21 +233,21 @@ const DocumentList = () => {
                     page * rowsPerPage,
                     page * rowsPerPage + rowsPerPage
                   )?.map((patient, index) => (
-                    <tr key={patient.id}>
+                    <tr key={patient?.id}>
                       <td>{page * rowsPerPage + index + 1}</td>
-                      <td>{patient.patient_name}</td>
-                      <td>{patient.age}</td>
-                      <td>{patient.gender}</td>
-                      <td>{patient.Date_of_registration}</td>
+                      <td>{patient?.patient_name}</td>
+                      <td>{patient?.age}</td>
+                      <td>{patient?.gender}</td>
+                      <td>{patient?.Date_of_registration}</td>
                       <td>
-                        {new Date(patient.created_at).toLocaleDateString(
+                        {new Date(patient?.created_at)?.toLocaleDateString(
                           "en-CA"
                         )}
                       </td>
-                      <td>{patient.ip_number}</td>
-                      <td>{patient.op_number}</td>
+                      <td>{patient?.ip_number}</td>
+                      <td>{patient?.op_number}</td>
                       <td>
-                        <Link to={`/PatientDetails/${patient.id}`}>
+                        <Link to={`/PatientDetails/${patient?.id}`}>
                           <Button variant="info">Details</Button>
                         </Link>
                       </td>
@@ -219,20 +256,20 @@ const DocumentList = () => {
                 </tbody>
               </Table>
             </div>
-            {filteredPatientData.length === 0 && (
+            {filteredPatientData?.length === 0 && (
               <p style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-              }}>{searchResultMessage || <img src={empty} alt="No records found" /> }</p>
+              }}>{searchResultMessage || <img src={empty} alt="No records found" />}</p>
             )}
           </Col>
-          <Col xs={12} style={{ position: "fixed", bottom: 0, zIndex: 100, background: "#fff",maxHeight:"36px" }}>
+          <Col xs={12} style={{ position: "fixed", bottom: 0, zIndex: 100, background: "#fff", maxHeight: "36px" }}>
             <TablePagination
               rowsPerPageOptions={[10]}
               rowsPerPage={rowsPerPage}
               page={page}
-              count={filteredPatientData.length}
+              count={filteredPatientData?.length}
               component="div"
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleRowPerPageChange}
