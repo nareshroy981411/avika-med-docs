@@ -2,16 +2,13 @@ import axios from "axios";
 import { baseUrl } from "../App";
 import { GET_DOCUMENTS_FAILURE, GET_DOCUMENTS_SUCCESS, GET_PATIENT_DETAILS_FAILURE, GET_PATIENT_DETAILS_SUCCESS } from "./types";
 
-const token = sessionStorage.getItem("token") || "";
-const headers = { Authorization: `Bearer ${token}` };
-
 //getAll records action
-export const getDocumentsAction = () => async (dispatch) => {
+export const getDocumentsAction = (token) => async (dispatch) => {
     try {
+        const headers = { Authorization: `Bearer ${token}` };
         const response = await axios.get(`${baseUrl}/admin/records`, {
-            headers: { Authorization: `Bearer ${token}` },
+            headers,
         });
-
         dispatch({
             type: GET_DOCUMENTS_SUCCESS,
             payload: response?.data?.data,
@@ -27,6 +24,7 @@ export const getDocumentsAction = () => async (dispatch) => {
 //get a single record action
 export const getPatientDetails = (id, token) => async (dispatch) => {
     try {
+        const headers = { Authorization: `Bearer ${token}` };
         const response = await axios.get(
             `${baseUrl}/admin/getMedicalRecord/${id}`,
             {

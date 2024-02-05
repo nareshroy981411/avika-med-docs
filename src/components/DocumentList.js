@@ -1,6 +1,6 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Form, Table, Button, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CircularProgress, TablePagination } from "@mui/material";
 import DatePicker from "react-datepicker";
 import { FaCalendarAlt } from "react-icons/fa";
@@ -39,7 +39,10 @@ const reducer = (state, action) => {
 
 const DocumentList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [state, setState] = useReducer(reducer, initialState);
+
+  const [render, setRender] = useState(0)
 
   const {
     searchTerm,
@@ -61,13 +64,28 @@ const DocumentList = () => {
     setState({ type: "SET_PAGE", payload: 0 });
   };
 
+  const fetchData = async () => {
+    if (token) {
+      await dispatch(getDocumentsAction(token));
+    }
+  };
+
   useEffect(() => {
-    dispatch(getDocumentsAction());
-  }, [dispatch, token]);
+    fetchData();
+    console.log("token", token);
+  }, [dispatch, token, navigate,render]);
+
+  useEffect(() => {
+    if (token) {
+      setTimeout(() => {
+        setRender(render + 1);
+      }, 500)
+    }
+  }, [])
 
   useEffect(() => {
     setState({ type: "SET_FILTERED_PATIENT_DATA", payload: patientData });
-  }, [patientData]);
+  }, [patientData])
 
   useEffect(() => {
     if (selectedDate) {
