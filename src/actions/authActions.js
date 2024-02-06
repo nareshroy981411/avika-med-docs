@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl } from "../App";
+import { loginUrl } from "../constants/constants";
 
 export const LogoutAction = () => {
   return {
@@ -13,7 +13,7 @@ export const loginAction = (usersData, navigate) => async (dispatch) => {
       type: "LOGIN_REQUEST",
     })
     const response = await axios.post(
-      `${baseUrl}/auth/admin-login`,
+      loginUrl,
       usersData,
       {
         headers: {
