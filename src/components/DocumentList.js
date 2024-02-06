@@ -73,7 +73,7 @@ const DocumentList = () => {
   useEffect(() => {
     fetchData();
     console.log("token", token);
-  }, [dispatch, token, navigate,render]);
+  }, [dispatch, token, navigate, render]);
 
   useEffect(() => {
     if (token) {
@@ -168,62 +168,66 @@ const DocumentList = () => {
           position: "relative",
         }}
       >
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch();
-          }}
-          className="d-flex m-2"
-          style={{ position: "sticky", top: '10px', zIndex: 100, background: "#fff" }}
-        >
-          <Form.Group controlId="searchTerm" as={Col} xs={12} md={6}>
-            <Form.Control
-              type="text"
-              placeholder="Search by patient name, age, gender"
-              value={searchTerm}
-              onChange={(e) => setState({ type: "SET_SEARCH_TERM", payload: e?.target?.value })}
-            />
-          </Form.Group>
-          <Form.Group
-            as={Col}
-            xs={12}
-            md={6}
-            className="d-flex align-items-center ml-md-2"
-          >
-            <div className="position-relative">
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setState({ type: "SET_SELECTED_DATE", payload: date })}
-                dateFormat="yyyy-MM-dd"
-                className="form-control d-none"
-              />
-              <FaCalendarAlt
-                onClick={() =>
-                  document.querySelector(".react-datepicker-wrapper input")
-                    .click()
-                }
-                className="position-absolute top-50 end-0 translate-middle-y text-primary me-2"
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <Button
-              variant="primary"
-              type="submit"
-              style={{ marginTop: "0px", marginLeft: "10px" }}
+        <Row className="d-flex justify-content-between row">
+          <Col className="d-flex justify-content-between" style={{ alignItems: "center" }}>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+              }}
+              className="d-flex m-2"
+              style={{ position: "sticky", top: '10px', zIndex: 100, background: "#fff" }}
             >
-              Search
-            </Button>
-          </Form.Group>
-        </Form>
-        <Row>
-          <Col xs={12} className="d-flex justify-content-end">
-            <span>
-              {selectedDate
-                ? `${selectedDate?.toLocaleDateString("en-CA")} Documents`
-                : "All Documents"}{" "}
-              : {filteredPatientData?.length}
-            </span>
+              <Form.Group controlId="searchTerm" as={Col} xs={12} md={28}  lg={24}>
+                <Form.Control
+                  type="text"
+                  placeholder="Search by patient name, age, gender"
+                  value={searchTerm}
+                  onChange={(e) => setState({ type: "SET_SEARCH_TERM", payload: e?.target?.value })}
+                />
+              </Form.Group>
+              <Form.Group
+                as={Col}
+                xs={12}
+                md={6}
+                className="d-flex align-items-center ml-md-2"
+              >
+                <div className="position-relative">
+                  <DatePicker
+                    selected={selectedDate}
+                    onChange={(date) => setState({ type: "SET_SELECTED_DATE", payload: date })}
+                    dateFormat="yyyy-MM-dd"
+                    className="form-control d-none"
+                  />
+                  <FaCalendarAlt
+                    onClick={() =>
+                      document.querySelector(".react-datepicker-wrapper input")
+                        .click()
+                    }
+                    className="position-absolute top-50 end-0 translate-middle-y text-primary me-2"
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  style={{ marginTop: "0px", marginLeft: "10px" }}
+                >
+                  Search
+                </Button>
+              </Form.Group>
+            </Form>
+            <Col xs={4} className="text-end">
+              <span style={{fontSize:15, background:"#33bfff",color: "#FFF", borderRadius: "8px", padding: "7px"}}>
+                {selectedDate
+                  ? `${selectedDate?.toLocaleDateString("en-CA")} Documents`
+                  : "All Documents"}{" "}
+                : {filteredPatientData?.length}
+              </span>
+            </Col>
           </Col>
+        </Row>
+        <Row>
           <Col xs={12}>
             <div
               style={{
