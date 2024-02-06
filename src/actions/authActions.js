@@ -13,7 +13,7 @@ export const loginAction = (usersData, navigate) => async (dispatch) => {
       type: "LOGIN_REQUEST",
     })
     const response = await axios.post(
-      `${baseUrl}/auth/login`,
+      `${baseUrl}/auth/admin-login`,
       usersData,
       {
         headers: {
