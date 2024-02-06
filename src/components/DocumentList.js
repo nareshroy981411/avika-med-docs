@@ -236,7 +236,7 @@ const DocumentList = () => {
                 minHeight: "150px",
               }}
             >
-              <Table striped bordered hover style={{ minWidth: "100%", zIndex: 100 }}>
+              <Table centered striped bordered hover style={{ minWidth: "100%", zIndex: 100, textAlign:"center" }}>
                 <thead>
                   <tr>
                     <th>S.NO</th>
