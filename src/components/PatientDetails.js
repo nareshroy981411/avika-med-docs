@@ -10,8 +10,8 @@ const PatientDetails = ({ token }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const patientDetails = useSelector((state) => state?.authReducer?.patientDetails?.data);
-  const loading = useSelector((state)=> state?.authReducer?.loading);
-  
+  const loading = useSelector((state) => state?.authReducer?.loading);
+
   useEffect(() => {
     dispatch(getPatientDetails(id, token));
   }, [dispatch, id, token]);
@@ -20,6 +20,13 @@ const PatientDetails = ({ token }) => {
     return (
       <Container className="mt-4" style={{ textAlign: "center" }}>
         <CircularProgress style={{ marginTop: "20px" }} />
+      </Container>
+    );
+  }
+  if (!patientDetails) {
+    return (
+      <Container className="mt-4" style={{ textAlign: "center" }}>
+        <h2>Details not available for this document</h2>
       </Container>
     );
   }

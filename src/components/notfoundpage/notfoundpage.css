@@ -1,0 +1,15 @@
+.bgImageNotFound {
+    background-image: url('../../assets/page-not-found.gif');
+    background-size: cover;
+    position: absolute;
+    width: 1150px;
+}
+
+.heading {
+    margin-top: 380px;
+    margin-left: 500px;
+    font-size: 40px;
+    color: blue;
+    font-weight: 200;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
