@@ -1,3 +1,9 @@
+//login actionTypes
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const GET_ALL_RECORDS = "GET_ALL_RECORDS";
+//record actionType
+export const GET_DOCUMENTS_SUCCESS = "GET_DOCUMENTS_SUCCESS";
+export const GET_DOCUMENTS_FAILURE = "GET_DOCUMENTS_FAILURE";
+//get a single record actionType
+export const GET_PATIENT_DETAILS_SUCCESS = "GET_PATIENT_DETAILS_SUCCESS";
+export const GET_PATIENT_DETAILS_FAILURE = "GET_PATIENT_DETAILS_FAILURE";

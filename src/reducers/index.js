@@ -2,8 +2,7 @@ import { combineReducers } from 'redux';
 import medicalRecordReducer from './medicalRecordReducer';
 
 const rootReducer = combineReducers({
-  medicalRecord: medicalRecordReducer,
-  // Add other reducers if needed
+  medicalRecord: medicalRecordReducer
 });
 
 export default rootReducer;
