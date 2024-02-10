@@ -123,7 +123,7 @@ const PatientDetails = ({ token }) => {
                       fontWeight: "bold",
                     }}
                   >
-                    Plase:
+                    Place:
                   </span>{" "}
                   {patientDetails?.place}
                 </p>
