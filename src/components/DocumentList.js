@@ -207,9 +207,8 @@ const DocumentList = () => {
               </Form.Group>
               <Form.Group as={Col} xs={12} md={4} className="d-flex align-items-center ml-md-2">
                 <Button
-                  variant="primary"
                   type="submit"
-                  style={{ marginTop: "0px", marginLeft: "10px" }}
+                  style={{ marginTop: "0px", marginLeft: "10px",backgroundColor:"#91D4D1" }}
                   className="btnSearch"
                 >
                   Search
@@ -218,7 +217,7 @@ const DocumentList = () => {
             </Form>
           </Col>
           <Col xs={12} md={6} lg={6} className="text-end mt-3">
-            <span style={{ fontSize: 15, background: "#33bfff", color: "#FFF", borderRadius: "8px", padding: "7px" }}>
+            <span style={{ fontSize: 15, backgroundColor:"#FAA61A", color: "#FFF", borderRadius: "8px", padding: "7px" }}>
               {selectedDate
                 ? `${selectedDate?.toLocaleDateString("en-CA")} Documents`
                 : "All Documents"}{" "}
@@ -270,7 +269,7 @@ const DocumentList = () => {
                       <td>{patient?.op_number}</td>
                       <td>
                         <Link to={`/PatientDetails/${patient?.id}`}>
-                          <Button variant="info">Details</Button>
+                          <Button style={{backgroundColor:"#063B59"}}>Details</Button>
                         </Link>
                       </td>
                     </tr>

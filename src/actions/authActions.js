@@ -1,5 +1,6 @@
 import axios from "axios";
 import { baseUrl } from "../App";
+import { message } from "antd";
 
 export const LogoutAction = () => {
   return {
@@ -26,10 +27,11 @@ export const loginAction = (usersData, navigate) => async (dispatch) => {
       type: "LOGIN_SUCCESS",
       payload: response?.data
     })
-    alert(`Hi! ${response?.data?.data?.user[0]?.username}`)
+    message.success(`Hi! ${response?.data?.data?.user[0]?.username}`)
     navigate(`/dashboard`)
   } catch (error) {
-    alert(error?.response?.data?.message)
+    // alert(error?.response?.data?.message)
+    message.error("Invalid Credentials")
     dispatch({
       type: "LOGIN_FAILED",
       payload: error?.response?.data
