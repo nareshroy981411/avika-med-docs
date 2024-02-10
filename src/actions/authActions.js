@@ -1,5 +1,6 @@
 import axios from "axios";
 import { loginUrl } from "../constants/constants";
+import { message } from "antd";
 
 export const LogoutAction = () => {
   return {
@@ -24,21 +25,18 @@ export const loginAction = (usersData, navigate) => async (dispatch) => {
     sessionStorage?.setItem('token', response?.data?.data?.token)
     dispatch({
       type: "LOGIN_SUCCESS",
-      payload: response?.data
+      payload: response?.data  
     })
-    alert(`Hi! ${response?.data?.data?.user[0]?.username}`)
-    navigate(`/dashboard`)
+    if(response?.status === 200){
+      message.success(`Hi! ${response?.data?.data?.user[0]?.username}`);
+      navigate(`/dashboard`);
+    }
   } catch (error) {
-    alert(error?.response?.data?.message)
     dispatch({
       type: "LOGIN_FAILED",
       payload: error?.response?.data
     })
+    message.error("Login failed. Invalid credentials.");
   }
 };
-
-
-
-
-
 

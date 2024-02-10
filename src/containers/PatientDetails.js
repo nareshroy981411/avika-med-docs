@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import Headers from "./Header";
+import Headers from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getPatientDetails } from "../actions/medActions";
 import { CircularProgress } from "@mui/material";
@@ -32,7 +32,7 @@ const PatientDetails = ({ token }) => {
   }
   return (
     <>
-      <Headers />
+      {/* <Headers /> */}
       <Container className="mt-4">
         <h2 className="text-center mb-4">
           Details of: {patientDetails?.patient_name}

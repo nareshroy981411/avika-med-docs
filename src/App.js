@@ -1,10 +1,11 @@
 import "./App.css";
 import React, { useEffect, useRef, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import LoginPage from "./components/LoginPage";
-import DashboardPage from "./components/DashboardPage";
-import PatientDetails from "./components/PatientDetails";
-import NotFoundPage from "./components/notfoundpage/notFoundPage";
+import PageNotFound from "./components/pageNotFound/pageNotFound";
+import Login from "./components/login/LoginPage";
+import DashboardPage from "./components/dashboard/DashboardPage";
+import PatientDetails from "./containers/PatientDetails";
+import Home from "./components/header/Header";
 
 export const baseUrl = 'https://med.avika.ai';
 export const publicURL = process.env.REACT_APP_BASE_URL;
@@ -29,21 +30,23 @@ const App = () => {
   }, [token, navigate]);
 
   return (
-    <Routes>
-      <Route path="/dashboard" element={<DashboardPage token={token} />} />
-      <Route
-        path="/PatientDetails/:id"
-        element={<PatientDetails token={token} />}
-      />
-      <Route path="/" element={<LoginPage />} />
-      <Route
-        path="*"
-        element={
-          <NotFoundPage />
-        }
-      />
-
-    </Routes>
+    <>
+      <Home />  {/* Header */}
+      <Routes>
+        {/* <Route path="/home" element={<DashboardPage token={token} />} /> */}
+        <Route
+          path="/PatientDetails/:id"
+          element={<PatientDetails token={token} />}
+        />
+        <Route path="/" element={<Login />} />
+        <Route
+          path="*"
+          element={
+            <PageNotFound />
+          }
+        />
+      </Routes>
+    </>
   );
 };
 

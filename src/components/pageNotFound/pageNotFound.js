@@ -1,8 +1,8 @@
 import React from 'react';
-import "./notfoundpage.css";
+import "./pageNotFound.scss";
 import { useLocation } from "react-router-dom";
 
-const NotFoundPage = () => {
+const PageNotFound = () => {
     const location = useLocation();
     const pathname = location.pathname;
     const listOfURL = pathname.split("/");
@@ -18,4 +18,4 @@ const NotFoundPage = () => {
     )
 }
 
-export default NotFoundPage
+export default PageNotFound;
