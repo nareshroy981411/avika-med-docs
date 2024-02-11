@@ -50,7 +50,7 @@ function Headers() {
   };
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: "#063B59", zIndex: 1000 }}> {/* Add zIndex */}
+    <AppBar position="fixed" sx={{ backgroundColor: "#FFFFfF", zIndex: 1000 }}> {/* Add zIndex */}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/dashboard" style={{ textDecoration: "none", textAlign:"center" }}>
@@ -119,7 +119,7 @@ function Headers() {
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
             onClick={() => navigate("/dashboard")}
           >
-            {pages.map((page) => (
+            {/* {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -127,7 +127,7 @@ function Headers() {
               >
                 {page}
               </Button>
-            ))}
+            ))} */}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

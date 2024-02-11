@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { Form, Table, Button, Col, Row } from "react-bootstrap";
+import { Form, Table, Button, Col, Row, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { CircularProgress, TablePagination } from "@mui/material";
 import DatePicker from "react-datepicker";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaSyncAlt } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
 import empty from "../assets/empty-folder.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -154,6 +154,19 @@ const DocumentList = () => {
     setSearchType(e.target.value);
   };
 
+  const clearFilters = async () => {
+    setState({
+      type: "SET_SEARCH_TERM",
+      payload: "",
+    });
+    setState({
+      type: "SET_SELECTED_DATE",
+      payload: null,
+    });
+    setSelectedGender("");
+    await fetchData();
+  };
+
   return (
     <>
       <div
@@ -225,6 +238,18 @@ const DocumentList = () => {
                 >
                   Search
                 </Button>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={<Tooltip id="clear-filters-tooltip">Clear Filters</Tooltip>}
+                >
+                  <Button
+                    variant="outline-secondary"
+                    onClick={clearFilters}
+                    style={{ marginLeft: "10px", backgroundColor:"#063B59" }}
+                  >
+                    <FaSyncAlt  color="#FAA61A"/>
+                  </Button>
+                </OverlayTrigger>
               </Form.Group>
             </Form>
           </Col>
