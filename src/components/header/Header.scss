@@ -1,0 +1,31 @@
+.layout-container {
+    height: 100vh;
+    width: auto;
+
+    .layout-header {
+        display: flex;
+        align-items: center;
+        background-color: #FFFFFF;
+
+        .avika-logo {
+            padding: auto;
+        }
+    }
+
+    .sider-menu {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        .sider-menu__items {
+            display: flex;
+            align-items: center;
+        }
+
+        .sider-menu__items svg {
+            margin-right: 8px;
+        }
+    }
+    .content-wrapper{
+        padding:10px;
+    }
+}

@@ -1,0 +1,45 @@
+.patientDetails-container {
+    margin: 10px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+
+    .patientDetails-header {
+        display: flex;
+        justify-content: space-between;
+        color: #FAA61A;
+
+    }
+
+    .patient-details-card {
+        width: 100%;
+    }
+
+    .patient-details-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        border-bottom: 2px dotted #262626;
+    }
+
+    .patient-details-label {
+        font-weight: bold;
+        margin-right: 8px;
+        width: 250px;
+        color: #FAA61A;
+        font-size: large;
+    }
+    .patient-details-colon {
+        margin-right: 8px;
+      }
+
+    .patient-details-value {
+        flex: 1;
+        text-align: center;
+        color:#063B59;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+}

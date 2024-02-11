@@ -28,9 +28,8 @@ export const loginAction = (usersData, navigate) => async (dispatch) => {
       payload: response?.data
     })
     message.success(`Hi! ${response?.data?.data?.user[0]?.username}`)
-    navigate(`/dashboard`)
+    navigate(`/home`)
   } catch (error) {
-    // alert(error?.response?.data?.message)
     message.error("Invalid Credentials")
     dispatch({
       type: "LOGIN_FAILED",
