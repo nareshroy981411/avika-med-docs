@@ -83,7 +83,7 @@ const Home = ({ children }) => {
             </Header>
             <Layout>
                 <Sider theme='light' trigger={null} collapsible collapsed={collapsed}>
-                    <Menu defaultSelectedKeys={['1']} className='sider-menu'>
+                    <Menu defaultSelectedKeys={['home']} className='sider-menu'>
                         {menuItems.map(item => (
                             <Menu.Item key={item.key} className='sider-menu__items' onClick={() => handleMenuItemClick(item.path)}>
                                 {collapsed ? item.icon : (

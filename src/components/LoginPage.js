@@ -9,7 +9,6 @@ import {
   Paper,
 } from "@mui/material";
 import { Toaster } from "react-hot-toast";
-import logoImage from "../assets/logo-no-background.png";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../actions/authActions";

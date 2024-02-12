@@ -29,7 +29,12 @@ const PatientDetails = ({ token }) => {
     <>
       <section className="patientDetails-container">
         <div className="patientDetails-header">
-          <Button type="primary" icon={<ArrowLeftOutlined />} onClick={handleGoBack}></Button>
+          <div onClick={handleGoBack} style={{cursor:"pointer"}}>
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="17" cy="17" r="16" stroke="#C4C4C4" stroke-width="1.5" />
+              <path d="M20 10L13 17L20 24" stroke="#262626" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </div>
           <h3>Details of:&nbsp;{patientDetails?.patient_name}</h3>
           <Button style={{ backgroundColor: "#063B59", color: "#FFFFFF" }}>
             <a

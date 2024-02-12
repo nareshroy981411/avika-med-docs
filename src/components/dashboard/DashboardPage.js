@@ -12,7 +12,7 @@ import { getDocumentsAction } from "../../actions/medActions";
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-const DashboardPage = ({token}) => {
+const DashboardPage = ({ token }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const patientData = useSelector((state) => state?.authReducer?.getAllDocumentRecords);
@@ -32,7 +32,7 @@ const DashboardPage = ({token}) => {
     setSelectedGender(null);
     setUploadedDateRange(null);
     setSearchText('');
-    setSearchedColumn('')
+    setSearchedColumn('');
     await fetchData();
   };
 
@@ -45,6 +45,11 @@ const DashboardPage = ({token}) => {
   const handleReset = async (clearFilters) => {
     clearFilters();
     setSearchText('');
+    setSearchedColumn('');
+  };
+
+  const disabledDate = current => {
+    return current && current > moment().endOf('day');
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -171,9 +176,6 @@ const DashboardPage = ({token}) => {
     setCurrentPage(1);
   }, [patientData, searchValue, selectedGender, uploadedDateRange]);
 
-
-
-
   const columns = [
     {
       title: 'S.NO',
@@ -273,22 +275,22 @@ const DashboardPage = ({token}) => {
             <Button
               variant="outline-secondary"
               onClick={clearFilters}
-              style={{ marginLeft: "10px", backgroundColor: "#063B59", color:"#FFFFFF", paddingBottom: "8px"}}
+              style={{ marginLeft: "10px", backgroundColor: "#063B59", color: "#FFFFFF", paddingBottom: "8px" }}
             >
-              <ReloadOutlined color="#FAA61A" />
+              <ReloadOutlined color="#FAA61A" style={{ verticalAlign: "unset" }} />
             </Button>
           </div>
           <div className="header-rightSide">
-            <Space>
-              <label for="uploaded_dates" style={{ fontSize: 17 }}>Search uploaded records</label>
+            <Space style={{ alignItems: 'center' }}>
+              <label htmlFor="uploaded_dates" style={{ fontSize: 17, marginBottom: 0 }}>Search uploaded records</label>
               <RangePicker
                 id={'uploaded_dates'}
                 style={{ marginRight: "10px" }}
                 format="MM/DD/YYYY"
                 onChange={(dates) => { console.log(dates); setUploadedDateRange(dates) }}
+                disabledDate={disabledDate}
               />
             </Space>
-
           </div>
         </div>
         <div className="table-wrapper">
