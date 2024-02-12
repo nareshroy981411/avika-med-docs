@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Button, DatePicker, Input, Select, Space, Table } from "antd";
 import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,11 +23,14 @@ const DashboardPage = ({ token }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [filteredData, setFilteredData] = useState([]);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
 
+  let confirmFunc = null;
+
   const clearFilters = async () => {
+    console.log(searchedColumn)
     setSearchValue('');
     setSelectedGender(null);
     setUploadedDateRange(null);
@@ -37,15 +40,16 @@ const DashboardPage = ({ token }) => {
   };
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
+    confirm()
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
 
-  const handleReset = async (clearFilters) => {
+  const handleReset = async (clearFilters, confirm, dataIndex) => {
     clearFilters();
-    setSearchText('');
-    setSearchedColumn('');
+    confirm()
+    setSearchText("");
+    setSearchedColumn(dataIndex);
   };
 
   const disabledDate = current => {
@@ -84,7 +88,7 @@ const DashboardPage = ({ token }) => {
             Search
           </Button>
           <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
+            onClick={() => clearFilters && handleReset(clearFilters, confirm, dataIndex)}
             size="small"
             style={{
               width: 90,
@@ -92,7 +96,7 @@ const DashboardPage = ({ token }) => {
           >
             Reset
           </Button>
-          <Button
+          {/* <Button
             type="link"
             size="small"
             onClick={() => {
@@ -104,7 +108,7 @@ const DashboardPage = ({ token }) => {
             }}
           >
             Filter
-          </Button>
+          </Button> */}
           <Button
             type="link"
             size="small"
@@ -243,6 +247,10 @@ const DashboardPage = ({ token }) => {
     },
   ];
 
+  const columndef = useMemo(
+    () => columns, [searchedColumn]
+  );
+
   return (
     <>
       <main className="dashboard-container">
@@ -295,7 +303,7 @@ const DashboardPage = ({ token }) => {
         </div>
         <div className="table-wrapper">
           <Table
-            columns={columns}
+            columns={columndef}
             dataSource={filteredData}
             scroll={{ y: 350 }}
             bordered
